@@ -79,6 +79,18 @@ namespace OctoPack.Tests.Integration
         }
 
         [Test]
+        public void ShouldUseAssemblyFileVersionWhenForced()
+        {
+            MsBuild("Sample.ConsoleApp\\Sample.ConsoleApp.csproj /p:RunOctoPack=true /p:Configuration=Release /p:OctoPackForceUseFileVersion=true /v:m");
+
+            AssertPackage(@"Sample.ConsoleApp\obj\octopacked\Sample.ConsoleApp.2.3.0.0.nupkg",
+                pkg => pkg.AssertContents(
+                    "Sample.ConsoleApp.exe",
+                    "Sample.ConsoleApp.exe.config",
+                    "Sample.ConsoleApp.pdb"));
+        }
+
+        [Test]
         public void ShouldPreferAssemblyInfoVersionOverAssemblyVersion()
         {
             MsBuild("Sample.WebApp\\Sample.WebApp.csproj /p:RunOctoPack=true /p:Configuration=Release /v:m");

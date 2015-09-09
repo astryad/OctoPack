@@ -26,6 +26,7 @@
     <OctoPackPublishPackageToHttp Condition="'$(OctoPackPublishPackageToHttp)' == ''"></OctoPackPublishPackageToHttp>
     <OctoPackPublishApiKey Condition="'$(OctoPackPublishApiKey)' == ''"></OctoPackPublishApiKey>
     <OctoPackPackageVersion Condition="'$(OctoPackPackageVersion)' == ''"></OctoPackPackageVersion>
+    <OctoPackForceUseFileVersion Condition="'$(OctoPackForceUseFileVersion)' == ''">false</OctoPackForceUseFileVersion>
     <OctoPackNuGetArguments Condition="'$(OctoPackNuGetArguments)' == ''"></OctoPackNuGetArguments>
     <OctoPackNugetProperties Condition="'$(OctoPackNuGetProperties)' == ''"></OctoPackNugetProperties>
     <OctoPackEnforceAddingFiles Condition="'$(OctoPackEnforceAddingFiles)' == ''">false</OctoPackEnforceAddingFiles>
@@ -41,7 +42,7 @@
   Create Octopus Deploy package
   -->
   <Target Name="OctoPack" Condition="$(RunOctoPack)">
-    <GetAssemblyVersionInfo AssemblyFiles="$(TargetPath)" Condition="'$(OctoPackPackageVersion)' == ''">
+    <GetAssemblyVersionInfo AssemblyFiles="$(TargetPath)" ForceUseFileVersion="$(OctoPackForceUseFileVersion)" Condition="'$(OctoPackPackageVersion)' == ''">
       <Output TaskParameter="AssemblyVersionInfo" ItemName="AssemblyVersions"/>
     </GetAssemblyVersionInfo>
     <PropertyGroup>
